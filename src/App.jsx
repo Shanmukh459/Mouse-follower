@@ -2,18 +2,24 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { useState } from 'react'
 
-const width = 960
-const height = 500
-const circleX = width / 2
-const circleY = height / 2
+const width = window.screen.width
+const height = window.screen.height
 const circleRadius = 30
+const initialMousePosition = {x: width / 2, y: height / 2}
 
 function App() {
+  const [mousePosition, setMousePosition] = React.useState(initialMousePosition)
+
+  const handleMouseMove = (event) => {
+    const { clientX, clientY } = event
+    setMousePosition({ x: clientX, y: clientY})
+  }
+
   return (
-    <svg height={height} width={width}>
+    <svg height={height} width={width} onMouseMove={handleMouseMove}>
       <circle 
-        cx={circleX}
-        cy={circleY}
+        cx={mousePosition.x}
+        cy={mousePosition.y}
         r={circleRadius}
       />
     </svg>
